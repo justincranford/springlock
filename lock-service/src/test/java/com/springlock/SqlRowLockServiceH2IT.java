@@ -18,13 +18,18 @@ class SqlRowLockServiceH2IT extends AbstractLockServiceIT {
 
     @Test
     void lockVersion_shouldIncreaseWhenLockStateChanges() {
-        assertThat(lockService.acquireLock(LOCK_KEY, OWNER_A, LONG_TTL)).isTrue();
-        assertThat(sqlRowLockRepository.findVersion(LOCK_KEY)).hasValue(1L);
+        String versionKey = "version-lock";
 
-        assertThat(lockService.releaseLock(LOCK_KEY, OWNER_A)).isTrue();
-        assertThat(sqlRowLockRepository.findVersion(LOCK_KEY)).hasValue(2L);
+        assertThat(lockService.releaseLock(versionKey, OWNER_A)).isFalse();
+        assertThat(lockService.releaseLock(versionKey, OWNER_B)).isFalse();
 
-        assertThat(lockService.acquireLock(LOCK_KEY, OWNER_B, LONG_TTL)).isTrue();
-        assertThat(sqlRowLockRepository.findVersion(LOCK_KEY)).hasValue(3L);
+        assertThat(lockService.acquireLock(versionKey, OWNER_A, LONG_TTL)).isTrue();
+        assertThat(sqlRowLockRepository.findVersion(versionKey)).hasValue(1L);
+
+        assertThat(lockService.releaseLock(versionKey, OWNER_A)).isTrue();
+        assertThat(sqlRowLockRepository.findVersion(versionKey)).hasValue(2L);
+
+        assertThat(lockService.acquireLock(versionKey, OWNER_B, LONG_TTL)).isTrue();
+        assertThat(sqlRowLockRepository.findVersion(versionKey)).hasValue(3L);
     }
 }

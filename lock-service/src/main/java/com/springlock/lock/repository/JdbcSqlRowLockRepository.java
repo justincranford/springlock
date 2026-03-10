@@ -1,5 +1,6 @@
 package com.springlock.lock.repository;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -8,7 +9,10 @@ import java.time.Instant;
 import java.util.OptionalLong;
 
 @Repository
+@Profile({"postgres", "h2"})
 public class JdbcSqlRowLockRepository implements SqlRowLockRepository {
+
+    private static final Instant RELEASED_AT = Instant.EPOCH;
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -35,7 +39,7 @@ public class JdbcSqlRowLockRepository implements SqlRowLockRepository {
                AND owner = ?
                AND expires_at >= ?
             """,
-            toTimestamp(now),
+            toTimestamp(RELEASED_AT),
             lockKey,
             owner,
             toTimestamp(now)
