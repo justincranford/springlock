@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - com.springlock.LockServiceRedisIT</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<div class="breadcrumbs">
+<a class="breadcrumb" href="../index.html">all</a> &gt; 
+<span class="breadcrumb">com.springlock.LockServiceRedisIT</span>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a class="successGroup" href="#">Gradle Test Run :lock-service:test</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Gradle Test Run :lock-service:test</h2>
+<h1>LockServiceRedisIT</h1>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a class="" href="#">summary</a>
+</li>
+<li>
+<a class="" href="#">standard output</a>
+</li>
+</ul>
+<div class="tab">
+<h2>summary</h2>
+<div>
+<div class="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox">
+<div class="counter">12</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox">
+<div class="counter">0</div>
+<p>skipped</p>
+</div>
+</td>
+<td>
+<div class="infoBox duration">
+<div class="counter">1.342s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<table class="test-results">
+<thead>
+<tr>
+<th>Child</th>
+<th hidden="">Name</th>
+<th>Tests</th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Duration</th>
+<th>Success rate</th>
+</tr>
+</thead>
+<tr>
+<td class="success">acquireLock_afterRelease_shouldSucceedForNewOwner()</td>
+<td class="path" hidden="">acquireLock_afterRelease_shouldSucceedForNewOwner()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.005s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">acquireLock_whenAlreadyHeldBySameOwner_shouldFail()</td>
+<td class="path" hidden="">acquireLock_whenAlreadyHeldBySameOwner_shouldFail()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.004s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">acquireLock_whenHeldByOtherOwner_shouldFail()</td>
+<td class="path" hidden="">acquireLock_whenHeldByOtherOwner_shouldFail()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.004s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">acquireLock_whenNotHeld_shouldSucceed()</td>
+<td class="path" hidden="">acquireLock_whenNotHeld_shouldSucceed()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.003s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">isLocked_afterRelease_shouldReturnFalse()</td>
+<td class="path" hidden="">isLocked_afterRelease_shouldReturnFalse()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.004s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">isLocked_whenHeld_shouldReturnTrue()</td>
+<td class="path" hidden="">isLocked_whenHeld_shouldReturnTrue()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.004s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">isLocked_whenNotHeld_shouldReturnFalse()</td>
+<td class="path" hidden="">isLocked_whenNotHeld_shouldReturnFalse()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.004s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">releaseLock_byNonOwner_shouldFail()</td>
+<td class="path" hidden="">releaseLock_byNonOwner_shouldFail()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.245s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">releaseLock_byOwner_shouldSucceed()</td>
+<td class="path" hidden="">releaseLock_byOwner_shouldSucceed()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.005s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">releaseLock_whenNotHeld_shouldReturnFalse()</td>
+<td class="path" hidden="">releaseLock_whenNotHeld_shouldReturnFalse()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.003s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">renewLock_byNonOwner_shouldFail()</td>
+<td class="path" hidden="">renewLock_byNonOwner_shouldFail()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.004s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">renewLock_byOwner_shouldSucceed()</td>
+<td class="path" hidden="">renewLock_byOwner_shouldSucceed()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.006s</td>
+<td class="success">100%</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="tab">
+<h2>standard output</h2>
+<span class="code">
+<pre id="root-0-test-stdout-com.springlock.LockServiceRedisIT">2026-03-09T23:12:09.176-04:00  INFO 26996 --- [    Test worker] tc.redis:7.4-alpine                      : Creating container for image: redis:7.4-alpine
+2026-03-09T23:12:09.317-04:00  INFO 26996 --- [    Test worker] tc.redis:7.4-alpine                      : Container redis:7.4-alpine is starting: 2b494c446922dce39f2063267f7d8ddf2d51499aae8a0cf374e9e918886da8b6
+2026-03-09T23:12:09.595-04:00  INFO 26996 --- [    Test worker] tc.redis:7.4-alpine                      : Container redis:7.4-alpine started in PT0.4193936S
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-03-09T23:12:09.606-04:00  INFO 26996 --- [    Test worker] com.springlock.LockServiceRedisIT        : Starting LockServiceRedisIT using Java 21.0.3 with PID 26996 (started by justi in C:\Dev\Projects\springlock\lock-service)
+2026-03-09T23:12:09.607-04:00  INFO 26996 --- [    Test worker] com.springlock.LockServiceRedisIT        : The following 1 profile is active: &quot;redis&quot;
+2026-03-09T23:12:09.636-04:00  INFO 26996 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-03-09T23:12:09.636-04:00  INFO 26996 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-03-09T23:12:09.640-04:00  INFO 26996 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springlock.lock.LockRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-03-09T23:12:09.640-04:00  INFO 26996 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 Redis repository interfaces.
+2026-03-09T23:12:09.657-04:00  INFO 26996 --- [    Test worker] com.springlock.LockServiceRedisIT        : Started LockServiceRedisIT in 0.06 seconds (process running for 21.036)
+2026-03-09T23:12:10.065-04:00  INFO 26996 --- [ecutorLoop-14-1] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was localhost/127.0.0.1:63630
+2026-03-09T23:12:10.070-04:00  WARN 26996 --- [oEventLoop-16-2] i.l.core.protocol.ConnectionWatchdog     : Cannot reconnect to [localhost/&lt;unresolved&gt;:63630]: Connection closed prematurely
+
+io.lettuce.core.RedisConnectionException: Connection closed prematurely
+	at io.lettuce.core.protocol.RedisHandshakeHandler.channelInactive(RedisHandshakeHandler.java:76) ~[lettuce-core-6.8.2.RELEASE.jar:6.8.2.RELEASE/34f8700]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:251) ~[netty-transport-4.2.10.Final.jar:4.2.10.Final]
+	at io.netty.channel.ChannelInboundHandlerAdapter.channelInactive(ChannelInboundHandlerAdapter.java:81) ~[netty-transport-4.2.10.Final.jar:4.2.10.Final]
+	at io.lettuce.core.ChannelGroupListener.channelInactive(ChannelGroupListener.java:54) ~[lettuce-core-6.8.2.RELEASE.jar:6.8.2.RELEASE/34f8700]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:251) ~[netty-transport-4.2.10.Final.jar:4.2.10.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelInactive(DefaultChannelPipeline.java:1424) ~[netty-transport-4.2.10.Final.jar:4.2.10.Final]
+	at io.netty.channel.DefaultChannelPipeline.fireChannelInactive(DefaultChannelPipeline.java:876) ~[netty-transport-4.2.10.Final.jar:4.2.10.Final]
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$6.run(AbstractChannel.java:676) ~[netty-transport-4.2.10.Final.jar:4.2.10.Final]
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:148) ~[netty-common-4.2.10.Final.jar:4.2.10.Final]
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:141) ~[netty-common-4.2.10.Final.jar:4.2.10.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:535) ~[netty-common-4.2.10.Final.jar:4.2.10.Final]
+	at io.netty.channel.SingleThreadIoEventLoop.run(SingleThreadIoEventLoop.java:201) ~[netty-transport-4.2.10.Final.jar:4.2.10.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:1195) ~[netty-common-4.2.10.Final.jar:4.2.10.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.2.10.Final.jar:4.2.10.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.2.10.Final.jar:4.2.10.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+</pre>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="root-0-test-stdout-com.springlock.LockServiceRedisIT">Copy</button>
+</span>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 9.4.0</a> at Mar 9, 2026, 11:14:54 p.m.</p>
+</div>
+</div>
+</body>
+</html>

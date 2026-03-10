@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.springlock.LockServicePostgres16IT" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-03-10T03:12:00.034Z" hostname="OMG" time="2.203">
+  <properties/>
+  <testcase name="releaseLock_byNonOwner_shouldFail()" classname="com.springlock.LockServicePostgres16IT" time="0.018"/>
+  <testcase name="acquireLock_whenHeldByOtherOwner_shouldFail()" classname="com.springlock.LockServicePostgres16IT" time="0.014"/>
+  <testcase name="releaseLock_byOwner_shouldSucceed()" classname="com.springlock.LockServicePostgres16IT" time="0.011"/>
+  <testcase name="acquireLock_whenAlreadyHeldBySameOwner_shouldFail()" classname="com.springlock.LockServicePostgres16IT" time="0.012"/>
+  <testcase name="releaseLock_whenNotHeld_shouldReturnFalse()" classname="com.springlock.LockServicePostgres16IT" time="0.006"/>
+  <testcase name="isLocked_whenHeld_shouldReturnTrue()" classname="com.springlock.LockServicePostgres16IT" time="0.009"/>
+  <testcase name="renewLock_byNonOwner_shouldFail()" classname="com.springlock.LockServicePostgres16IT" time="0.011"/>
+  <testcase name="acquireLock_whenNotHeld_shouldSucceed()" classname="com.springlock.LockServicePostgres16IT" time="0.007"/>
+  <testcase name="isLocked_whenNotHeld_shouldReturnFalse()" classname="com.springlock.LockServicePostgres16IT" time="0.005"/>
+  <testcase name="isLocked_afterRelease_shouldReturnFalse()" classname="com.springlock.LockServicePostgres16IT" time="0.01"/>
+  <testcase name="renewLock_byOwner_shouldSucceed()" classname="com.springlock.LockServicePostgres16IT" time="0.011"/>
+  <testcase name="acquireLock_afterRelease_shouldSucceedForNewOwner()" classname="com.springlock.LockServicePostgres16IT" time="0.012"/>
+  <system-out><![CDATA[2026-03-09T23:12:00.039-04:00  INFO 26996 --- [    Test worker] tc.postgres:16.13                        : Creating container for image: postgres:16.13
+2026-03-09T23:12:00.142-04:00  INFO 26996 --- [    Test worker] tc.postgres:16.13                        : Container postgres:16.13 is starting: 3ced1ac07b813e0bcdd1da107045aca4de36a3f494bc7f4fce01d601096e445a
+2026-03-09T23:12:01.878-04:00  INFO 26996 --- [    Test worker] tc.postgres:16.13                        : Container postgres:16.13 started in PT1.8388327S
+2026-03-09T23:12:01.879-04:00  INFO 26996 --- [    Test worker] tc.postgres:16.13                        : Container is started (JDBC URL: jdbc:postgresql://localhost:63579/springlock_test?loggerLevel=OFF)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-03-09T23:12:01.894-04:00  INFO 26996 --- [    Test worker] com.springlock.LockServicePostgres16IT   : Starting LockServicePostgres16IT using Java 21.0.3 with PID 26996 (started by justi in C:\Dev\Projects\springlock\lock-service)
+2026-03-09T23:12:01.895-04:00  INFO 26996 --- [    Test worker] com.springlock.LockServicePostgres16IT   : The following 1 profile is active: "postgres"
+2026-03-09T23:12:01.971-04:00  INFO 26996 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-03-09T23:12:01.972-04:00  INFO 26996 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-09T23:12:01.979-04:00  INFO 26996 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7 ms. Found 1 JPA repository interface.
+2026-03-09T23:12:01.982-04:00  INFO 26996 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-03-09T23:12:01.982-04:00  INFO 26996 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-03-09T23:12:01.983-04:00  INFO 26996 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springlock.lock.LockRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-03-09T23:12:01.983-04:00  INFO 26996 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-03-09T23:12:02.009-04:00  INFO 26996 --- [    Test worker] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-09T23:12:02.031-04:00  INFO 26996 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-09T23:12:02.033-04:00  INFO 26996 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-03-09T23:12:02.043-04:00  INFO 26996 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@4975af1
+2026-03-09T23:12:02.043-04:00  INFO 26996 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-03-09T23:12:02.050-04:00  INFO 26996 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:63579/springlock_test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 16.13
+	Default catalog/schema: springlock_test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-09T23:12:02.067-04:00  INFO 26996 --- [    Test worker] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-09T23:12:02.072-04:00  INFO 26996 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-09T23:12:02.106-04:00  INFO 26996 --- [    Test worker] com.springlock.LockServicePostgres16IT   : Started LockServicePostgres16IT in 0.225 seconds (process running for 13.485)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
