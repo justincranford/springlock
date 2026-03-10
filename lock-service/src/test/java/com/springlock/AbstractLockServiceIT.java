@@ -9,7 +9,7 @@ import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(classes = LockServiceApplication.class)
+@SpringBootTest
 public abstract class AbstractLockServiceIT {
 
     protected static final String LOCK_KEY = "test-lock";

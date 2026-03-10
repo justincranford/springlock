@@ -1,4 +1,4 @@
-package com.springlock.lock;
+package com.springlock.lock.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,6 +32,9 @@ public class DistributedLock {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
+    @Column(name = "lock_version", nullable = false)
+    private long lockVersion;
+
     protected DistributedLock() {}
 
     public DistributedLock(String lockKey, String owner, Instant expiresAt) {
@@ -39,6 +42,7 @@ public class DistributedLock {
         this.owner = owner;
         this.expiresAt = expiresAt;
         this.createdAt = Instant.now();
+        this.lockVersion = 1L;
     }
 
     public Long getId() { return id; }
@@ -46,6 +50,7 @@ public class DistributedLock {
     public String getOwner() { return owner; }
     public Instant getExpiresAt() { return expiresAt; }
     public Instant getCreatedAt() { return createdAt; }
+    public long getLockVersion() { return lockVersion; }
 
     public void setExpiresAt(Instant expiresAt) { this.expiresAt = expiresAt; }
 }

@@ -1,5 +1,9 @@
-package com.springlock.lock;
+package com.springlock.lock.service;
 
+import com.springlock.lock.LockService;
+import com.springlock.lock.domain.DistributedLock;
+import com.springlock.lock.repository.LockRepository;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +12,7 @@ import java.time.Instant;
 
 @Service
 @Profile({"postgres", "h2"})
+@ConditionalOnProperty(name = "springlock.lock.strategy", havingValue = "jpa", matchIfMissing = true)
 public class DatabaseLockService implements LockService {
 
     private final LockRepository lockRepository;

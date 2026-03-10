@@ -1,5 +1,6 @@
-package com.springlock.lock;
+package com.springlock.lock.repository;
 
+import com.springlock.lock.domain.DistributedLock;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

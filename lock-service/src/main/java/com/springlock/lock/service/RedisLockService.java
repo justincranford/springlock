@@ -1,4 +1,4 @@
-package com.springlock.lock.redis;
+package com.springlock.lock.service;
 
 import com.springlock.lock.LockService;
 import org.springframework.context.annotation.Profile;
