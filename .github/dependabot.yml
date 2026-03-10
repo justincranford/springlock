@@ -9,8 +9,6 @@ updates:
       timezone: "America/New_York"
     assignees:
       - "justincranford"
-    reviewers:
-      - "justincranford"
     labels:
       - "dependencies"
     open-pull-requests-limit: 10
@@ -35,8 +33,6 @@ updates:
       time: "09:00"
       timezone: "America/New_York"
     assignees:
-      - "justincranford"
-    reviewers:
       - "justincranford"
     labels:
       - "dependencies"

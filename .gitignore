@@ -80,25 +80,6 @@ test-output/
 test-results/
 workflow-reports/
 
-# Python (CI helper scripts, pre-commit hooks)
-__pycache__/
-*.py[cod]
-.Python
-.venv
-venv/
-ENV/
-htmlcov/
-.coverage
-.coverage.*
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.tox/
-
-# Node.js
-node_modules/
-npm-debug.log*
-
 # Security - never track private keys or certificates
 *.pem
 *.key
@@ -109,12 +90,5 @@ npm-debug.log*
 *.keystore
 *.jks
 
-# Root-level Python helper scripts (session temp files)
-/*.py
-
-# SARIF security reports
-*.sarif
-
-# CI/CD cache
-.cicd/
+# cspell word cache
 .cspellcache
