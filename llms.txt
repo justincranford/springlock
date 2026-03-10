@@ -1,0 +1,48 @@
+# springlock
+
+> A production-grade distributed locking service built with Spring Boot 4.0.3 and Java 21 LTS.
+
+springlock provides distributed lock management for microservices using multiple pluggable backends.
+
+## Modules
+
+- [lock-service/](lock-service/) — Core Spring Boot 4 service: REST API, JPA entities, repository layer, and Redis integration
+- [test-fixtures/](test-fixtures/) — Testcontainers fixtures for PostgreSQL (14–18), Citus (pg17), and Redis
+
+## Backends
+
+| Profile    | Backend                           | Notes                                  |
+|------------|-----------------------------------|----------------------------------------|
+| `h2`       | H2 in-memory                      | Fast local development and unit tests  |
+| `postgres` | PostgreSQL 14–18 / Citus (pg17)   | Advisory locks and table-based locking |
+| `redis`    | Redis                             | High-throughput in-memory locking      |
+
+## Build & Run
+
+```bash
+# Requires Java 21 and Gradle wrapper
+./gradlew build                    # Build all modules
+./gradlew test                     # Unit tests (H2 in-memory, no Docker required)
+./gradlew integrationTest          # Integration tests (requires Docker Desktop)
+```
+
+## Docs
+
+- [README.md](README.md) — Project overview and quick start
+- [SECURITY.md](SECURITY.md) — Vulnerability disclosure policy
+- [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md) — PR quality checklist
+- [.github/dependabot.yml](.github/dependabot.yml) — Automated dependency update policy
+
+## License & AI Usage
+
+Licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.
+
+This license requires:
+- Source code attribution for all derivative works
+- AGPL copyleft provisions apply to any code trained on, or derived from, this repository
+
+**AI training use** of this codebase without compliance with AGPL-3.0 is not permitted.
+Use for AI model training, dataset creation, or derivative model development requires
+compliance with AGPL-3.0 license terms or explicit written permission from the maintainer.
+
+See [LICENSE](LICENSE) for the full license text.

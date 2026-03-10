@@ -1,0 +1,113 @@
+# robots.txt — springlock
+#
+# GitHub does not serve per-repository robots.txt for github.com pages.
+# This file applies when the repository content is served via GitHub Pages
+# or any other web hosting. It also signals policy intent to AI crawlers
+# that scan repository files directly.
+#
+# AI training crawlers are explicitly disallowed. Standard search engines
+# are allowed for project discoverability.
+#
+# References:
+#   https://developers.google.com/search/docs/crawling-indexing/robots/intro
+#   https://platform.openai.com/docs/gptbot
+#   https://darkvisitors.com/
+
+# ── Standard search engines (allowed for discoverability) ────────────
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# ── OpenAI AI training crawlers ──────────────────────────────────────
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: OAI-SearchBot
+Disallow: /
+
+# ── Anthropic AI training crawlers ───────────────────────────────────
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+# ── Google Gemini / Vertex AI training ───────────────────────────────
+
+User-agent: Google-Extended
+Disallow: /
+
+# ── Amazon AI crawlers ────────────────────────────────────────────────
+
+User-agent: Amazonbot
+Disallow: /
+
+# ── ByteDance / TikTok AI training ────────────────────────────────────
+
+User-agent: Bytespider
+Disallow: /
+
+# ── Perplexity AI ─────────────────────────────────────────────────────
+
+User-agent: PerplexityBot
+Disallow: /
+
+# ── Cohere AI ──────────────────────────────────────────────────────────
+
+User-agent: cohere-ai
+Disallow: /
+
+# ── Diffbot ────────────────────────────────────────────────────────────
+
+User-agent: Diffbot
+Disallow: /
+
+# ── Apple AI (Applebot-Extended) ───────────────────────────────────────
+
+User-agent: Applebot-Extended
+Disallow: /
+
+# ── Common Crawl (primary source of AI training datasets) ──────────────
+
+User-agent: CCBot
+Disallow: /
+
+# ── Omgili / Webz.io (AI training data brokers) ────────────────────────
+
+User-agent: omgili
+Disallow: /
+
+User-agent: omgilibot
+Disallow: /
+
+# ── DataForSEO (data scraping / AI datasets) ───────────────────────────
+
+User-agent: DataForSeoBot
+Disallow: /
+
+# ── Scrapy (generic scraping framework) ────────────────────────────────
+
+User-agent: Scrapy
+Disallow: /
+
+# ── Default: disallow all unrecognised crawlers ─────────────────────────
+
+User-agent: *
+Disallow: /

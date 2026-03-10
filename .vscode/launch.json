@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "LockServiceApplication (h2)",
+      "request": "launch",
+      "mainClass": "com.springlock.LockServiceApplication",
+      "projectName": "lock-service",
+      "vmArgs": "-Dspring.profiles.active=h2",
+      "env": {}
+    },
+    {
+      "type": "java",
+      "name": "LockServiceApplication (postgres)",
+      "request": "launch",
+      "mainClass": "com.springlock.LockServiceApplication",
+      "projectName": "lock-service",
+      "vmArgs": "-Dspring.profiles.active=postgres",
+      "env": {}
+    },
+    {
+      "type": "java",
+      "name": "LockServiceApplication (redis)",
+      "request": "launch",
+      "mainClass": "com.springlock.LockServiceApplication",
+      "projectName": "lock-service",
+      "vmArgs": "-Dspring.profiles.active=redis",
+      "env": {}
+    }
+  ]
+}

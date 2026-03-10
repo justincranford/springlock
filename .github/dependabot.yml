@@ -1,0 +1,43 @@
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    assignees:
+      - "justincranford"
+    reviewers:
+      - "justincranford"
+    labels:
+      - "dependencies"
+    open-pull-requests-limit: 10
+    groups:
+      spring-boot:
+        patterns:
+          - "org.springframework.boot:*"
+          - "io.spring.dependency-management:*"
+      testcontainers:
+        patterns:
+          - "org.testcontainers:*"
+      junit:
+        patterns:
+          - "org.junit.jupiter:*"
+          - "org.junit.platform:*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    assignees:
+      - "justincranford"
+    reviewers:
+      - "justincranford"
+    labels:
+      - "dependencies"
+    open-pull-requests-limit: 10

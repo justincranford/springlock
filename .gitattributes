@@ -1,0 +1,53 @@
+# Normalize all text files to LF in the repository
+* text=auto eol=lf
+
+# Windows-specific files that must remain CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Java source files
+*.java   text eol=lf
+*.kt     text eol=lf
+*.kts    text eol=lf
+*.groovy text eol=lf
+
+# Config and data files
+*.properties text eol=lf
+*.yml        text eol=lf
+*.yaml       text eol=lf
+*.xml        text eol=lf
+*.json       text eol=lf
+*.toml       text eol=lf
+*.sql        text eol=lf
+*.md         text eol=lf
+*.sh         text eol=lf
+
+# Binary files - do not attempt line ending conversion
+*.class    binary
+*.jar      binary
+*.war      binary
+*.ear      binary
+*.zip      binary
+*.tar      binary
+*.gz       binary
+*.exe      binary
+*.dll      binary
+*.so       binary
+*.dylib    binary
+*.key      binary
+*.crt      binary
+*.pem      binary
+*.der      binary
+*.p12      binary
+*.pfx      binary
+*.keystore binary
+*.jks      binary
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.gif      binary
+*.ico      binary
+*.pdf      binary
+
+# Mark Gradle wrapper jar as binary/generated (exclude from diffs and language stats)
+gradle/wrapper/gradle-wrapper.jar binary linguist-generated=true
