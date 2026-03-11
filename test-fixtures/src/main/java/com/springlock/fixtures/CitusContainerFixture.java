@@ -2,6 +2,7 @@ package com.springlock.fixtures;
 
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.utility.DockerImageName;
 
 /**
  * Reusable Testcontainers fixture for Citus (distributed PostgreSQL).
@@ -12,19 +13,16 @@ public class CitusContainerFixture extends PostgreSQLContainer<CitusContainerFix
 
     public static final String CITUS_IMAGE = "citusdata/citus:14.0.0-pg17";
 
+    private static final DockerImageName CITUS_DOCKER_IMAGE =
+        DockerImageName.parse(CITUS_IMAGE).asCompatibleSubstituteFor("postgres");
+
     public CitusContainerFixture() {
-        super(CITUS_IMAGE);
+        super(CITUS_DOCKER_IMAGE);
         withDatabaseName("springlock_test");
         withUsername("springlock");
         withPassword("springlock");
     }
 
-    /**
-     * Registers Spring datasource properties from this container into the
-     * given {@link DynamicPropertyRegistry}.
-     *
-     * @param registry the Spring test property registry
-     */
     public void registerProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", this::getJdbcUrl);
         registry.add("spring.datasource.username", this::getUsername);

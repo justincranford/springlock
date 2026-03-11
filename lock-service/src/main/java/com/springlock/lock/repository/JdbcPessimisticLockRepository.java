@@ -6,7 +6,6 @@ import java.util.OptionalLong;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Profile;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -33,7 +32,7 @@ public class JdbcPessimisticLockRepository implements SqlRowLockRepository {
         + " WHERE lock_key = ? AND owner = ?";
     private static final String SQL_INSERT =
         "INSERT INTO distributed_locks (lock_key, owner, expires_at, created_at, lock_version)"
-        + " VALUES (?, ?, ?, ?, 1)";
+        + " VALUES (?, ?, ?, ?, 1) ON CONFLICT DO NOTHING";
     private static final String SQL_SELECT_VERSION =
         "SELECT lock_version FROM distributed_locks WHERE lock_key = ?";
 
@@ -75,11 +74,7 @@ public class JdbcPessimisticLockRepository implements SqlRowLockRepository {
     }
 
     private boolean insertLockRow(String lockKey, String owner, Instant now, Instant expiresAt) {
-        try {
-            return jdbcTemplate.update(SQL_INSERT, lockKey, owner, ts(expiresAt), ts(now)) > 0;
-        } catch (DataIntegrityViolationException ignored) {
-            return false;
-        }
+        return jdbcTemplate.update(SQL_INSERT, lockKey, owner, ts(expiresAt), ts(now)) > 0;
     }
 
     private boolean acquireExistingRow(String lockKey, String owner, Instant now, Instant expiresAt) {
