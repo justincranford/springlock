@@ -4,6 +4,10 @@
 !src/**/build/
 gradle-app.setting
 
+# VS Code Java output
+**/bin/
+!src/**/bin/
+
 # Maven
 target/
 pom.xml.tag
