@@ -1,14 +1,19 @@
 package com.springlock.lock.repository;
 
 import com.springlock.lock.domain.DistributedLock;
+import java.time.Instant;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import java.time.Instant;
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface LockRepository extends JpaRepository<DistributedLock, Long> {
+
+    String JPQL_DELETE_BY_KEY_AND_OWNER =
+        "DELETE FROM DistributedLock d WHERE d.lockKey = :lockKey AND d.owner = :owner";
+    String JPQL_DELETE_EXPIRED = "DELETE FROM DistributedLock d WHERE d.expiresAt < :now";
 
     Optional<DistributedLock> findByLockKey(String lockKey);
 
@@ -17,10 +22,12 @@ public interface LockRepository extends JpaRepository<DistributedLock, Long> {
     boolean existsByLockKeyAndExpiresAtGreaterThanEqual(String lockKey, Instant now);
 
     @Modifying
-    @Query("DELETE FROM DistributedLock d WHERE d.lockKey = :lockKey AND d.owner = :owner")
+    @Transactional
+    @Query(JPQL_DELETE_BY_KEY_AND_OWNER)
     int deleteByLockKeyAndOwner(@Param("lockKey") String lockKey, @Param("owner") String owner);
 
     @Modifying
-    @Query("DELETE FROM DistributedLock d WHERE d.expiresAt < :now")
+    @Transactional
+    @Query(JPQL_DELETE_EXPIRED)
     int deleteExpired(@Param("now") Instant now);
 }

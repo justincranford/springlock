@@ -1,11 +1,14 @@
 package com.springlock.lock.service;
 
-import com.springlock.lock.LockService;
+import java.time.Duration;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import java.time.Duration;
 
+import com.springlock.lock.LockService;
+
+/** Redis-based distributed lock service (profile: redis). */
 @Service
 @Profile("redis")
 public class RedisLockService implements LockService {
@@ -20,16 +23,14 @@ public class RedisLockService implements LockService {
 
     @Override
     public boolean acquireLock(String lockKey, String owner, Duration ttl) {
-        Boolean acquired = redisTemplate.opsForValue()
-                .setIfAbsent(LOCK_PREFIX + lockKey, owner, ttl);
-        return Boolean.TRUE.equals(acquired);
+        return Boolean.TRUE.equals(
+            redisTemplate.opsForValue().setIfAbsent(LOCK_PREFIX + lockKey, owner, ttl));
     }
 
     @Override
     public boolean releaseLock(String lockKey, String owner) {
         String key = LOCK_PREFIX + lockKey;
-        String currentOwner = redisTemplate.opsForValue().get(key);
-        if (owner.equals(currentOwner)) {
+        if (owner.equals(redisTemplate.opsForValue().get(key))) {
             redisTemplate.delete(key);
             return true;
         }
@@ -44,8 +45,7 @@ public class RedisLockService implements LockService {
     @Override
     public boolean renewLock(String lockKey, String owner, Duration ttl) {
         String key = LOCK_PREFIX + lockKey;
-        String currentOwner = redisTemplate.opsForValue().get(key);
-        if (owner.equals(currentOwner)) {
+        if (owner.equals(redisTemplate.opsForValue().get(key))) {
             redisTemplate.expire(key, ttl);
             return true;
         }

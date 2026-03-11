@@ -1,17 +1,21 @@
 package com.springlock.lock.service;
 
-import com.springlock.lock.LockService;
-import com.springlock.lock.repository.SqlRowLockRepository;
+import java.time.Duration;
+import java.time.Instant;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Duration;
-import java.time.Instant;
 
+import com.springlock.lock.LockService;
+
+import com.springlock.lock.repository.SqlRowLockRepository;
+
+/** JDBC-based lock service (pessimistic FOR UPDATE or optimistic CAS), profiles: postgres, h2. */
 @Service
 @Profile({"postgres", "h2"})
-@ConditionalOnProperty(name = "springlock.lock.strategy", havingValue = "sql-rowlock")
+@ConditionalOnProperty(name = "springlock.lock.strategy", havingValue = "jdbc")
 public class SqlRowLevelDatabaseLockService implements LockService {
 
     private final SqlRowLockRepository repository;

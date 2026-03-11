@@ -1,5 +1,7 @@
 package com.springlock.lock.domain;
 
+import java.time.Instant;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,14 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import java.time.Instant;
 
 @Entity
-@Table(
-    name = "distributed_locks",
-    uniqueConstraints = @UniqueConstraint(name = "uq_lock_key", columnNames = "lock_key")
-)
+@Table(name = "distributed_locks",
+    uniqueConstraints = @UniqueConstraint(name = "uq_lock_key", columnNames = "lock_key"))
 public class DistributedLock {
+
+    static final long INITIAL_VERSION = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +43,7 @@ public class DistributedLock {
         this.owner = owner;
         this.expiresAt = expiresAt;
         this.createdAt = Instant.now();
-        this.lockVersion = 1L;
+        this.lockVersion = INITIAL_VERSION;
     }
 
     public Long getId() { return id; }
