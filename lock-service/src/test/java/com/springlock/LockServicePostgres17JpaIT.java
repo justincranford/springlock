@@ -8,16 +8,20 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+/** Functional + concurrency + perf tests: postgres:17.9 + JPA strategy. */
 @Tag("integration")
 @Testcontainers
 @ActiveProfiles("postgres")
-class LockServicePostgres15IT extends AbstractLockServiceIT {
+class LockServicePostgres17JpaIT extends AbstractLockServiceIT {
+
+    static final String IMAGE = "postgres:17.9";
 
     @Container
-    static final PostgreSQLContainerFixture postgres = new PostgreSQLContainerFixture("postgres:15.17");
+    static final PostgreSQLContainerFixture postgres = new PostgreSQLContainerFixture(IMAGE);
 
     @DynamicPropertySource
-    static void datasourceProperties(DynamicPropertyRegistry registry) {
-        postgres.registerProperties(registry);
-    }
+    static void datasource(DynamicPropertyRegistry r) { postgres.registerProperties(r); }
+
+    @Override
+    protected String backendLabel() { return "postgres17-jpa"; }
 }
