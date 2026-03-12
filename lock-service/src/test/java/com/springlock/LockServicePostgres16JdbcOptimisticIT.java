@@ -22,10 +22,10 @@ class LockServicePostgres16JdbcOptimisticIT extends AbstractLockServiceIT {
     static final String IMAGE = "postgres:16.13";
 
     @Container
-    static final PostgreSQLContainerFixture postgres = new PostgreSQLContainerFixture(IMAGE);
+    static final PostgreSQLContainerFixture POSTGRES = new PostgreSQLContainerFixture(IMAGE);
 
     @DynamicPropertySource
-    static void datasource(DynamicPropertyRegistry r) { postgres.registerProperties(r); }
+    static void datasource(DynamicPropertyRegistry r) { POSTGRES.registerProperties(r); }
 
     @Override
     protected String backendLabel() { return "postgres16-jdbc-optimistic"; }

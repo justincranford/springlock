@@ -20,13 +20,13 @@ class LockServiceRedisIT extends AbstractLockServiceIT {
 
     @Container
     @SuppressWarnings("resource")
-    static final GenericContainer<?> redis =
+    static final GenericContainer<?> REDIS =
         new GenericContainer<>(DockerImageName.parse(REDIS_IMAGE)).withExposedPorts(REDIS_PORT);
 
     @DynamicPropertySource
     static void redisProperties(DynamicPropertyRegistry r) {
-        r.add("spring.data.redis.host", redis::getHost);
-        r.add("spring.data.redis.port", () -> redis.getMappedPort(REDIS_PORT));
+        r.add("spring.data.redis.host", REDIS::getHost);
+        r.add("spring.data.redis.port", () -> REDIS.getMappedPort(REDIS_PORT));
     }
 
     @Override

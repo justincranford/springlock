@@ -17,10 +17,10 @@ class LockServicePostgres14JpaIT extends AbstractLockServiceIT {
     static final String IMAGE = "postgres:14.22";
 
     @Container
-    static final PostgreSQLContainerFixture postgres = new PostgreSQLContainerFixture(IMAGE);
+    static final PostgreSQLContainerFixture POSTGRES = new PostgreSQLContainerFixture(IMAGE);
 
     @DynamicPropertySource
-    static void datasource(DynamicPropertyRegistry r) { postgres.registerProperties(r); }
+    static void datasource(DynamicPropertyRegistry r) { POSTGRES.registerProperties(r); }
 
     @Override
     protected String backendLabel() { return "postgres14-jpa"; }

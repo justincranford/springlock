@@ -15,10 +15,10 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 class LockServiceCitusJpaIT extends AbstractLockServiceIT {
 
     @Container
-    static final CitusContainerFixture citus = new CitusContainerFixture();
+    static final CitusContainerFixture CITUS = new CitusContainerFixture();
 
     @DynamicPropertySource
-    static void datasource(DynamicPropertyRegistry r) { citus.registerProperties(r); }
+    static void datasource(DynamicPropertyRegistry r) { CITUS.registerProperties(r); }
 
     @Override
     protected String backendLabel() { return "citus-jpa"; }
