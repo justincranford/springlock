@@ -2,6 +2,7 @@ package com.springlock.lock.repository;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Optional;
 import java.util.OptionalLong;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.springlock.lock.model.LockInfo;
 
 @Repository
 @Profile({"postgres", "h2"})
@@ -17,6 +19,8 @@ public class JdbcPessimisticLockRepository implements SqlRowLockRepository {
 
     private static final Instant RELEASED_AT = Instant.EPOCH;
 
+    private static final String SQL_SELECT_ACTIVE_LOCK =
+        "SELECT owner, expires_at FROM distributed_locks WHERE lock_key = ? AND expires_at >= ?";
     private static final String SQL_SELECT_FOR_UPDATE =
         "SELECT expires_at FROM distributed_locks WHERE lock_key = ? FOR UPDATE";
     private static final String SQL_UPDATE_TAKE =
@@ -64,6 +68,14 @@ public class JdbcPessimisticLockRepository implements SqlRowLockRepository {
     @Override
     public boolean renew(String lockKey, String owner, Instant expiresAt) {
         return jdbcTemplate.update(SQL_RENEW, ts(expiresAt), lockKey, owner) > 0;
+    }
+
+    @Override
+    public Optional<LockInfo> findLockInfo(String lockKey, Instant now) {
+        return Optional.ofNullable(jdbcTemplate.query(SQL_SELECT_ACTIVE_LOCK, rs -> {
+            if (!rs.next()) return null;
+            return new LockInfo(lockKey, rs.getString(1), rs.getTimestamp(2).toInstant());
+        }, lockKey, ts(now)));
     }
 
     @Override

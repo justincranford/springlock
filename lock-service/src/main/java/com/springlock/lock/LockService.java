@@ -1,6 +1,9 @@
 package com.springlock.lock;
 
 import java.time.Duration;
+import java.util.Optional;
+
+import com.springlock.lock.model.LockInfo;
 
 /** Distributed lock service abstraction (JPA, JDBC-pessimistic, JDBC-optimistic, Redis). */
 public interface LockService {
@@ -16,4 +19,7 @@ public interface LockService {
 
     /** Extends the TTL of a lock held by owner. Returns {@code true} iff renewed. */
     boolean renewLock(String lockKey, String owner, Duration ttl);
+
+    /** Returns the current lock state if the lock is held and not expired. */
+    Optional<LockInfo> findLock(String lockKey);
 }

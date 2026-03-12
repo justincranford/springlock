@@ -1,12 +1,14 @@
 package com.springlock.lock.service;
 
 import java.time.Duration;
+import java.util.Optional;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.springlock.lock.LockService;
+import com.springlock.lock.model.LockInfo;
 
 /** Redis-based distributed lock service (profile: redis). */
 @Service
@@ -50,5 +52,20 @@ public class RedisLockService implements LockService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Optional<LockInfo> findLock(String lockKey) {
+        String key = LOCK_PREFIX + lockKey;
+        String owner = redisTemplate.opsForValue().get(key);
+        if (owner == null) {
+            return Optional.empty();
+        }
+        Long ttlMillis = redisTemplate.getExpire(key, java.util.concurrent.TimeUnit.MILLISECONDS);
+        if (ttlMillis == null || ttlMillis < 0) {
+            return Optional.empty();
+        }
+        return Optional.of(new LockInfo(lockKey, owner,
+            java.time.Instant.now().plusMillis(ttlMillis)));
     }
 }

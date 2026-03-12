@@ -2,6 +2,7 @@ package com.springlock.lock.service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Optional;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.springlock.lock.LockService;
 import com.springlock.lock.domain.DistributedLock;
+import com.springlock.lock.mapper.LockMapper;
+import com.springlock.lock.model.LockInfo;
 import com.springlock.lock.repository.LockRepository;
 
 /** JPA-based distributed lock service (profiles: postgres, h2; strategy: jpa). */
@@ -36,7 +39,7 @@ public class DatabaseLockService implements LockService {
             lockRepository.saveAndFlush(new DistributedLock(lockKey, owner, now.plus(ttl)));
             return true;
         } catch (DataIntegrityViolationException e) {
-            return false; // concurrent insert by another thread
+            return false;
         }
     }
 
@@ -62,5 +65,13 @@ public class DatabaseLockService implements LockService {
                 return true;
             })
             .orElse(false);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<LockInfo> findLock(String lockKey) {
+        return lockRepository
+            .findByLockKeyAndExpiresAtGreaterThanEqual(lockKey, Instant.now())
+            .map(LockMapper::toLockInfo);
     }
 }
