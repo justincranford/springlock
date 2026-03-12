@@ -36,6 +36,21 @@ val integrationTest by tasks.registering(Test::class) {
     finalizedBy(tasks.named("jacocoTestReport"))
 }
 
+val h2Test by tasks.registering(Test::class) {
+    description = "Runs H2-backed integration tests without Docker."
+    group = "verification"
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
+    useJUnitPlatform {
+        includeTags("integration")
+    }
+    filter {
+        includeTestsMatching("*.LockServiceH2*")
+    }
+    shouldRunAfter(tasks.named("test"))
+    finalizedBy(tasks.named("jacocoTestReport"))
+}
+
 tasks.named<Test>("test") {
     useJUnitPlatform {
         excludeTags("integration")
@@ -43,12 +58,14 @@ tasks.named<Test>("test") {
 }
 
 tasks.named<JacocoCoverageVerification>("jacocoTestCoverageVerification") {
-    dependsOn(integrationTest)
+    dependsOn(tasks.named("test"), h2Test)
     executionData(fileTree(layout.buildDirectory.dir("jacoco")).include("*.exec"))
     violationRules {
         rule {
             limit {
-                minimum = "0.80".toBigDecimal()
+                counter = "INSTRUCTION"
+                value = "COVEREDRATIO"
+                minimum = "0.95".toBigDecimal()
             }
         }
     }
@@ -59,6 +76,35 @@ tasks.named<JacocoReport>("jacocoTestReport") {
 }
 
 // 'check' runs unit tests only; run 'integrationTest' explicitly when Docker is available.
+// Note: info.solidsoft.pitest Gradle plugin does not yet support Gradle 9 (reporting.baseDir removed).
+// PIT mutation testing is run via a custom JavaExec task below.
+
+val pitestClasspath by configurations.creating
+val pitestReport = layout.buildDirectory.dir("reports/pitest")
+
+dependencies {
+    pitestClasspath("org.pitest:pitest-command-line:1.17.4")
+    pitestClasspath("org.pitest:pitest-junit5-plugin:1.2.2")
+}
+
+tasks.register<JavaExec>("pitest") {
+    description = "Runs PIT mutation tests against unit test suite."
+    group = "verification"
+    dependsOn(tasks.named("testClasses"))
+    classpath = pitestClasspath + sourceSets["test"].runtimeClasspath
+    mainClass.set("org.pitest.mutationtest.commandline.MutationCoverageReport")
+    jvmArgs("--add-opens", "java.base/java.lang=ALL-UNNAMED")
+    args(
+        "--reportDir", pitestReport.get().asFile.absolutePath,
+        "--targetClasses", "com.springlock.lock.*",
+        "--targetTests", "com.springlock.lock.*",
+        "--excludedClasses", "com.springlock.lock.*Test,com.springlock.lock.*IT",
+        "--sourceDirs", "src/main/java",
+        "--outputFormats", "HTML,XML",
+        "--mutationThreshold", "98",
+        "--threads", "2"
+    )
+}
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")

@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -27,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.springlock.lock.LockService;
+import com.springlock.lock.model.LockInfo;
 
 @SpringBootTest
 public abstract class AbstractLockServiceIT {
@@ -404,4 +406,23 @@ public abstract class AbstractLockServiceIT {
     }
 
     static Instant now() { return Instant.now(); }
+
+    // ── findLock tests ─────────────────────────────────────────────────────────
+
+    @Test
+    @DisplayName("[functional] findLock returns info when lock is held")
+    void findLock_whenLocked_returnsLockInfo() {
+        lockService.acquireLock("test-lock", OWNER_A, LONG_TTL);
+        Optional<LockInfo> info = lockService.findLock("test-lock");
+        assertThat(info).isPresent();
+        assertThat(info.get().lockKey()).isEqualTo("test-lock");
+        assertThat(info.get().owner()).isEqualTo(OWNER_A);
+        assertThat(info.get().expiresAt()).isAfter(Instant.now());
+    }
+
+    @Test
+    @DisplayName("[functional] findLock returns empty when not locked")
+    void findLock_whenNotLocked_returnsEmpty() {
+        assertThat(lockService.findLock("test-lock")).isEmpty();
+    }
 }
