@@ -47,8 +47,28 @@ val h2Test by tasks.registering(Test::class) {
     filter {
         includeTestsMatching("*.LockServiceH2*")
     }
+    testLogging {
+        showStandardStreams = true
+    }
     shouldRunAfter(tasks.named("test"))
     finalizedBy(tasks.named("jacocoTestReport"))
+}
+
+val perfTest by tasks.registering(Test::class) {
+    description = "Runs performance benchmarks on H2 backends."
+    group = "verification"
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
+    useJUnitPlatform {
+        includeTags("integration")
+    }
+    filter {
+        includeTestsMatching("*.PerfBenchmark*")
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+    shouldRunAfter(tasks.named("test"))
 }
 
 tasks.named<Test>("test") {
