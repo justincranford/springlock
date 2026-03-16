@@ -103,7 +103,7 @@ val pitestClasspath by configurations.creating
 val pitestReport = layout.buildDirectory.dir("reports/pitest")
 
 dependencies {
-    pitestClasspath("org.pitest:pitest-command-line:1.17.4")
+    pitestClasspath("org.pitest:pitest-command-line:1.22.1")
     pitestClasspath("org.pitest:pitest-junit5-plugin:1.2.2")
 }
 
