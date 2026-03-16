@@ -104,7 +104,7 @@ val pitestReport = layout.buildDirectory.dir("reports/pitest")
 
 dependencies {
     pitestClasspath("org.pitest:pitest-command-line:1.17.4")
-    pitestClasspath("org.pitest:pitest-junit5-plugin:1.2.2")
+    pitestClasspath("org.pitest:pitest-junit5-plugin:1.2.3")
 }
 
 tasks.register<JavaExec>("pitest") {
